@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
-    // latest 50 messages (newest first)
+    // existing
     List<Message> findTop50ByOrderByCreatedAtDesc();
+
+    // new: by room
+    List<Message> findTop50ByRoomIdOrderByCreatedAtDesc(Long roomId);
 }
 

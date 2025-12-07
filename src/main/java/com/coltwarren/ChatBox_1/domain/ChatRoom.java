@@ -2,24 +2,24 @@ package com.coltwarren.ChatBox_1.domain;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "messages")
-public class Message {
+@Table(name = "chat_rooms")
+public class ChatRoom {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
-
-    @Column(length = 1000)
-    private String content;
+    @Column(nullable = false, unique = true)
+    private String name;
 
     private LocalDateTime createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "room_id")
-    private ChatRoom room;
+    @OneToMany(mappedBy = "room")
+    private List<Message> messages = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {
@@ -38,20 +38,12 @@ public class Message {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -62,11 +54,11 @@ public class Message {
         this.createdAt = createdAt;
     }
 
-    public ChatRoom getRoom() {
-        return room;
+    public List<Message> getMessages() {
+        return messages;
     }
 
-    public void setRoom(ChatRoom room) {
-        this.room = room;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }

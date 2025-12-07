@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Simple Chat</title>
@@ -69,12 +69,32 @@
         .chat-input button:hover {
             background: #2980b9;
         }
+        .room-select {
+        padding: 8px 10px;
+        border-bottom: 1px solid #ddd;
+        background: #fafafa;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+        .room-select label {
+        font-size: 0.9rem;
+        color: #555;
+    }
+
     </style>
 </head>
 <body>
 <div class="chat-container">
     <div class="chat-header">
-        Very Simple Chat
+        <span>Very Simple Chat</span>
+        <select id="roomSelect" style="margin-left: 10px; padding: 4px; font-size: 14px;"></select>
+    </div>
+
+    <div class="room-select">
+        <label for="roomSelect">Room:</label>
+        <select id="roomSelect2"></select>
     </div>
 
     <div id="messages" class="messages">
@@ -82,8 +102,8 @@
     </div>
 
     <div class="chat-input">
-        <input id="username" type="text" placeholder="Name" />
-        <input id="messageInput" type="text" placeholder="Type a message..." />
+        <input id="username" type="text" placeholder="Name"/>
+        <input id="messageInput" type="text" placeholder="Type a message..."/>
         <button id="sendBtn">Send</button>
     </div>
 </div>

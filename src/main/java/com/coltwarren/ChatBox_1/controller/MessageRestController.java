@@ -17,18 +17,23 @@ public class MessageRestController {
     }
 
     @GetMapping
-    public List<Message> getMessages() {
-        return messageService.getLatestMessages();
+    public List<Message> getMessages(@RequestParam(required = false) Long roomId) {
+        return messageService.getLatestMessages(roomId);
     }
 
     @PostMapping
     public Message postMessage(@RequestBody NewMessageRequest request) {
-        return messageService.saveMessage(request.getUsername(), request.getContent());
+        return messageService.saveMessage(
+                request.getRoomId(),
+                request.getUsername(),
+                request.getContent()
+        );
     }
 
     public static class NewMessageRequest {
         private String username;
         private String content;
+        private Long roomId;
 
         public String getUsername() {
             return username;
@@ -42,6 +47,13 @@ public class MessageRestController {
         }
         public void setContent(String content) {
             this.content = content;
+        }
+
+        public Long getRoomId() {
+            return roomId;
+        }
+        public void setRoomId(Long roomId) {
+            this.roomId = roomId;
         }
     }
 }
